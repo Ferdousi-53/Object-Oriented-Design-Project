@@ -1,0 +1,90 @@
+// Player.java
+public interface Player {
+    String getName();
+    int getAge();
+    void play();
+}
+
+// CricketMatch.java
+public class CricketMatch {
+    private Player batsman;
+    private Player bowler;
+
+    public CricketMatch(Player batsman, Player bowler) {
+        this.batsman = batsman;
+        this.bowler = bowler;
+    }
+
+    public void startMatch() {
+        System.out.println("Match starts!");
+        batsman.play();
+        bowler.play();
+        System.out.println("Match ends!");
+    }
+}
+
+// Batsman.java
+public class Batsman implements Player {
+    private String name;
+    private int age;
+    private int runsScored;
+
+    public Batsman(String name, int age, int runsScored) {
+        this.name = name;
+        this.age = age;
+        this.runsScored = runsScored;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public int getRunsScored() {
+        return runsScored;
+    }
+
+    @Override
+    public void play() {
+        // Batsman specific implementation of playing
+        System.out.println(name + " is batting.");
+    }
+}
+
+// Bowler.java
+public class Bowler implements Player {
+    private String name;
+    private int age;
+    private int wicketsTaken;
+
+    public Bowler(String name, int age, int wicketsTaken) {
+        this.name = name;
+        this.age = age;
+        this.wicketsTaken = wicketsTaken;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public int getWicketsTaken() {
+        return wicketsTaken;
+    }
+
+    @Override
+    public void play() {
+        // Bowler specific implementation of playing
+        System.out.println(name + " is bowling.");
+    }
+}
+/*In this example, the CricketMatch class depends on the Player interface rather than
+concrete implementations (Batsman and Bowler). This allows us to easily change or extend 
+player types without modifying the CricketMatch class, 
+thus adhering to the Dependency Inversion Principle.*/
