@@ -1,72 +1,138 @@
-// Player.java
-public interface Player {
-    String getName();
-    int getAge();
-    void play();
+//*************************************************************************
+// Title : A java programme to demonstrate Interface Segregation Principle.
+// Author : Snigdha Ferdousi,Student ID: 220203, Undergrduate student, Khulna University.
+//*************************************************************************
+/**
+/**
+ * Interface representing a batsman in cricket.
+ */
+interface Batsman {
+    void bat();
 }
 
-// Batsman.java
-public class Batsman implements Player {
-    private String name;
-    private int age;
-    private int runsScored;
+/**
+ * Interface representing a bowler in cricket.
+ */
+interface Bowler {
+    void bowl();
+}
 
-    public Batsman(String name, int age, int runsScored) {
+/**
+ * Interface representing an all-rounder in cricket.
+ */
+interface AllRounder extends Batsman, Bowler {
+    void field();
+}
+
+/**
+ * Class representing a cricket player.
+ */
+class CricketPlayer {
+    protected String name;
+
+    /**
+     * Constructs a CricketPlayer object with the given name.
+     * 
+     * @param name The name of the player.
+     */
+    public CricketPlayer(String name) {
         this.name = name;
-        this.age = age;
-        this.runsScored = runsScored;
     }
 
+    /**
+     * Gets the name of the player.
+     * 
+     * @return The name of the player.
+     */
     public String getName() {
         return name;
     }
+}
 
-    public int getAge() {
-        return age;
-    }
-
-    public int getRunsScored() {
-        return runsScored;
+/**
+ * Class representing a batsman player.
+ */
+class BatsmanPlayer extends CricketPlayer implements Batsman {
+    /**
+     * Constructs a BatsmanPlayer object with the given name.
+     * 
+     * @param name The name of the batsman.
+     */
+    public BatsmanPlayer(String name) {
+        super(name);
     }
 
     @Override
-    public void play() {
-        // Batsman specific implementation of playing
-        System.out.println(name + " is batting.");
+    public void bat() {
+        System.out.println(getName() + " is batting.");
     }
 }
 
-// Bowler.java
-public class Bowler implements Player {
-    private String name;
-    private int age;
-    private int wicketsTaken;
-
-    public Bowler(String name, int age, int wicketsTaken) {
-        this.name = name;
-        this.age = age;
-        this.wicketsTaken = wicketsTaken;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public int getWicketsTaken() {
-        return wicketsTaken;
+/**
+ * Class representing a bowler player.
+ */
+class BowlerPlayer extends CricketPlayer implements Bowler {
+    /**
+     * Constructs a BowlerPlayer object with the given name.
+     * 
+     * @param name The name of the bowler.
+     */
+    public BowlerPlayer(String name) {
+        super(name);
     }
 
     @Override
-    public void play() {
-        // Bowler specific implementation of playing
-        System.out.println(name + " is bowling.");
+    public void bowl() {
+        System.out.println(getName() + " is bowling.");
     }
 }
 
-/*In this example, we have segregated the Player interface into smaller interfaces
-(Player and Bowler). Each class implements only the methods it needs, 
-adhering to the Interface Segregation Principle.*/
+/**
+ * Class representing an all-rounder player.
+ */
+class AllRounderPlayer extends CricketPlayer implements AllRounder {
+    /**
+     * Constructs an AllRounderPlayer object with the given name.
+     * 
+     * @param name The name of the all-rounder.
+     */
+    public AllRounderPlayer(String name) {
+        super(name);
+    }
+
+    @Override
+    public void bat() {
+        System.out.println(getName() + " is batting.");
+    }
+
+    @Override
+    public void bowl() {
+        System.out.println(getName() + " is bowling.");
+    }
+
+    @Override
+    public void field() {
+        System.out.println(getName() + " is fielding.");
+    }
+}
+
+/**
+ * Main class to demonstrate the Interface Segregation Principle.
+ */
+public class Main {
+    public static void main(String[] args) {
+        // Create batsman
+        BatsmanPlayer batsman = new BatsmanPlayer("Virat Kohli");
+        batsman.bat();
+
+        // Create bowler
+        BowlerPlayer bowler = new BowlerPlayer("Jasprit Bumrah");
+        bowler.bowl();
+
+        // Create all-rounder
+        AllRounderPlayer allRounder = new AllRounderPlayer("Ben Stokes");
+        allRounder.bat();
+        allRounder.bowl();
+        allRounder.field();
+    }
+}
