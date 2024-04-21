@@ -1,39 +1,108 @@
-// Player.java
-public class Player {
-    private String name;
-    private int age;
+//*************************************************************************
+// Title : A java programme to demonstrate Open Close Principle.
+// Author : Nahid Hasan,Student ID: 220229, Undergrduate student, Khulna University.
+//*************************************************************************
+/**
 
-    public Player(String name, int age) {
+/**
+ * Abstract class representing a cricket player.
+ */
+abstract class Player {
+    protected String name;
+    protected int age;
+    protected String country;
+
+    /**
+     * Constructs a Player object with the given details.
+     * 
+     * @param name     The name of the player.
+     * @param age      The age of the player.
+     * @param country  The country the player represents.
+     */
+    public Player(String name, int age, String country) {
         this.name = name;
         this.age = age;
+        this.country = country;
     }
 
-    public String getName() {
-        return name;
+    /**
+     * Calculates the statistics of the player.
+     */
+    public abstract void calculateStats();
+}
+
+/**
+ * Represents a batsman in cricket.
+ */
+class Batsman extends Player {
+    private int totalRuns;
+    private int centuries;
+    private double battingAverage;
+
+    /**
+     * Constructs a Batsman object with the given details.
+     * 
+     * @param name       The name of the batsman.
+     * @param age        The age of the batsman.
+     * @param country    The country the batsman represents.
+     * @param totalRuns  The total runs scored by the batsman.
+     * @param centuries  The total centuries scored by the batsman.
+     */
+    public Batsman(String name, int age, String country, int totalRuns, int centuries) {
+        super(name, age, country);
+        this.totalRuns = totalRuns;
+        this.centuries = centuries;
     }
 
-    public int getAge() {
-        return age;
+    @Override
+    public void calculateStats() {
+        battingAverage = totalRuns / (double) centuries;
+        System.out.println("Batsman: " + name);
+        System.out.println("Country: " + country);
+        System.out.println("Batting Average: " + battingAverage);
     }
 }
 
-// Batsman.java
-public class Batsman extends Player {
-    private int runsScored;
+/**
+ * Represents a bowler in cricket.
+ */
+class Bowler extends Player {
+    private int totalWickets;
+    private double bowlingAverage;
 
-    public Batsman(String name, int age, int runsScored) {
-        super(name, age);
-        this.runsScored = runsScored;
+    /**
+     * Constructs a Bowler object with the given details.
+     * 
+     * @param name          The name of the bowler.
+     * @param age           The age of the bowler.
+     * @param country       The country the bowler represents.
+     * @param totalWickets  The total wickets taken by the bowler.
+     */
+    public Bowler(String name, int age, String country, int totalWickets) {
+        super(name, age, country);
+        this.totalWickets = totalWickets;
     }
 
-    public int getRunsScored() {
-        return runsScored;
+    @Override
+    public void calculateStats() {
+        bowlingAverage = totalWickets / (double) 25; // Assuming 25 matches played
+        System.out.println("Bowler: " + name);
+        System.out.println("Country: " + country);
+        System.out.println("Bowling Average: " + bowlingAverage);
     }
 }
 
-/*
-In this example, the Player class is open for extension but closed for modification.
- We extend the Player class to create a Batsman class without modifying the existing
-  code of the Player class. This allows us to add new functionality (such as keeping 
-  track of runs scored) without changing the existing code.
-*/
+/**
+ * Main class to demonstrate the Open-Closed Principle with cricket players.
+ */
+public class Main {
+    public static void main(String[] args) {
+        // Create a batsman
+        Player batsman = new Batsman("Virat Kohli", 33, "India", 12169, 43);
+        batsman.calculateStats();
+
+        // Create a bowler
+        Player bowler = new Bowler("Jasprit Bumrah", 28, "India", 90);
+        bowler.calculateStats();
+    }
+}
