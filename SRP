@@ -1,47 +1,146 @@
-//This class will maintain Single Responsibility Principle(SRP)
+//*************************************************************************
+// Title : A java programme to demonstrate Single Responsibility Principle.
+// Author : Snigdha Ferdousi,Student ID: 220203, Undergrduate student, Khulna University.
+//*************************************************************************
+/**
 
-// Base class representing a cricket player
+
+/**
+ * Represents a cricket player.
+ */
 class CricketPlayer {
     private String name;
     private int age;
-    private String team;
+    private String country;
 
-    // Constructor
-    public CricketPlayer(String name, int age, String team) {
+    /**
+     * Constructs a CricketPlayer object with the given details.
+     * 
+     * @param name     The name of the player.
+     * @param age      The age of the player.
+     * @param country  The country the player represents.
+     */
+    public CricketPlayer(String name, int age, String country) {
         this.name = name;
         this.age = age;
-        this.team = team;
+        this.country = country;
     }
 
-    // Getters and setters
+    /**
+     * Gets the name of the player.
+     * 
+     * @return The name of the player.
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    /**
+     * Gets the age of the player.
+     * 
+     * @return The age of the player.
+     */
     public int getAge() {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    /**
+     * Gets the country the player represents.
+     * 
+     * @return The country of the player.
+     */
+    public String getCountry() {
+        return country;
+    }
+}
+
+/**
+ * Represents a cricket match.
+ */
+class CricketMatch {
+    private String team1;
+    private String team2;
+    private String venue;
+    private String result;
+
+    /**
+     * Constructs a CricketMatch object with the given details.
+     * 
+     * @param team1   The name of the first team.
+     * @param team2   The name of the second team.
+     * @param venue   The venue of the match.
+     * @param result  The result of the match.
+     */
+    public CricketMatch(String team1, String team2, String venue, String result) {
+        this.team1 = team1;
+        this.team2 = team2;
+        this.venue = venue;
+        this.result = result;
     }
 
-    public String getTeam() {
-        return team;
+    /**
+     * Gets the name of the first team.
+     * 
+     * @return The name of the first team.
+     */
+    public String getTeam1() {
+        return team1;
     }
 
-    public void setTeam(String team) {
-        this.team = team;
+    /**
+     * Gets the name of the second team.
+     * 
+     * @return The name of the second team.
+     */
+    public String getTeam2() {
+        return team2;
     }
 
-    // Other methods
-    public void displayPlayerInfo() {
-        System.out.println("Name: " + name);
-        System.out.println("Age: " + age);
-        System.out.println("Team: " + team);
+    /**
+     * Gets the venue of the match.
+     * 
+     * @return The venue of the match.
+     */
+    public String getVenue() {
+        return venue;
+    }
+
+    /**
+     * Gets the result of the match.
+     * 
+     * @return The result of the match.
+     */
+    public String getResult() {
+        return result;
+    }
+}
+
+/**
+ * Main class to demonstrate the CricketPlayer and CricketMatch classes.
+ */
+public class Main {
+    /**
+     * Main method to demonstrate the usage of CricketPlayer and CricketMatch classes.
+     * 
+     * @param args Command-line arguments (not used).
+     */
+    public static void main(String[] args) {
+        // Create a CricketPlayer object
+        CricketPlayer player = new CricketPlayer("Virat Kohli", 33, "India");
+
+        // Display player information
+        System.out.println("Player Name: " + player.getName());
+        System.out.println("Age: " + player.getAge());
+        System.out.println("Country: " + player.getCountry());
+
+        // Create a CricketMatch object
+        CricketMatch match = new CricketMatch("India", "Australia", "MCG", "India won by 6 wickets");
+
+        // Display match information
+        System.out.println("\nMatch Information:");
+        System.out.println("Team 1: " + match.getTeam1());
+        System.out.println("Team 2: " + match.getTeam2());
+        System.out.println("Venue: " + match.getVenue());
+        System.out.println("Result: " + match.getResult());
     }
 }
