@@ -1,65 +1,99 @@
-// Player.java
-public abstract class Player {
-    private String name;
-    private int age;
+//*************************************************************************
+// Title : A java programme to demonstrate Liscov's Substitution Principle.
+// Author : Snigdha Ferdousi,Student ID: 220203, Undergrduate student, Khulna University.
+//*************************************************************************
+/**
 
-    public Player(String name, int age) {
-        this.name = name;
-        this.age = age;
+/**
+ * Represents a cricket team.
+ */
+class CricketTeam {
+    protected String teamName;
+    protected String captain;
+
+    /**
+     * Constructs a CricketTeam object with the given team name and captain.
+     * 
+     * @param teamName The name of the team.
+     * @param captain  The name of the team captain.
+     */
+    public CricketTeam(String teamName, String captain) {
+        this.teamName = teamName;
+        this.captain = captain;
     }
 
-    public String getName() {
-        return name;
+    /**
+     * Gets the name of the team.
+     * 
+     * @return The name of the team.
+     */
+    public String getTeamName() {
+        return teamName;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public abstract void play();
-}
-
-// Batsman.java
-public class Batsman extends Player {
-    private int runsScored;
-
-    public Batsman(String name, int age, int runsScored) {
-        super(name, age);
-        this.runsScored = runsScored;
-    }
-
-    public int getRunsScored() {
-        return runsScored;
-    }
-
-    @Override
-    public void play() {
-        // Batsman specific implementation of playing
-        System.out.println(getName() + " is batting.");
-    }
-}
-
-// Bowler.java
-public class Bowler extends Player {
-    private int wicketsTaken;
-
-    public Bowler(String name, int age, int wicketsTaken) {
-        super(name, age);
-        this.wicketsTaken = wicketsTaken;
-    }
-
-    public int getWicketsTaken() {
-        return wicketsTaken;
-    }
-
-    @Override
-    public void play() {
-        // Bowler specific implementation of playing
-        System.out.println(getName() + " is bowling.");
+    /**
+     * Gets the name of the team captain.
+     * 
+     * @return The name of the team captain.
+     */
+    public String getCaptain() {
+        return captain;
     }
 }
 
+/**
+ * Represents a national cricket team.
+ */
+class NationalTeam extends CricketTeam {
+    private String country;
 
-/*In this example, the Player class is a base class for different types of players in cricket.
-Each subclass (Batsman and Bowler) can be substituted for 
-the Player class without affecting the correctness of the program.*/
+    /**
+     * Constructs a NationalTeam object with the given team name, captain, and country.
+     * 
+     * @param teamName The name of the team.
+     * @param captain  The name of the team captain.
+     * @param country  The country the team represents.
+     */
+    public NationalTeam(String teamName, String captain, String country) {
+        super(teamName, captain);
+        this.country = country;
+    }
+
+    /**
+     * Gets the country the team represents.
+     * 
+     * @return The country the team represents.
+     */
+    public String getCountry() {
+        return country;
+    }
+}
+
+/**
+ * Main class to demonstrate the Liskov Substitution Principle.
+ */
+public class Main {
+    public static void main(String[] args) {
+        // Create a cricket team
+        CricketTeam team = new NationalTeam("India", "Virat Kohli", "India");
+
+        // Print team information
+        printTeamInfo(team);
+    }
+
+    /**
+     * Prints information about the given cricket team.
+     * 
+     * @param team The cricket team to print information about.
+     */
+    public static void printTeamInfo(CricketTeam team) {
+        System.out.println("Team Name: " + team.getTeamName());
+        System.out.println("Captain: " + team.getCaptain());
+
+        // Check if the team is a national team
+        if (team instanceof NationalTeam) {
+            NationalTeam nationalTeam = (NationalTeam) team; // Downcasting
+            System.out.println("Country: " + nationalTeam.getCountry());
+        }
+    }
+}
